@@ -43,24 +43,21 @@ int main()
             mat1[i][j]=1.0e0; mat2[i][j]=2.0e0;
         }
 	}
-    for (N=10; N <= 1000; N+=incre(N)) {
+    for (N=10; N <= 1000; N += incre(N)) {
     	t_start = rtclock();
 
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
 			res[i][j] = 0;
             for (int k = 0; k < N; k++) {
-                res[i][j] += mat1[i][k]*mat2[k][j];
+                res[i][j] += mat1[i][k] * mat2[k][j];
             }
-            // a[i]=b[i]+c[i]*d[i];
 		}
-		// if (a[2] < 0) dummy(a,b,c,d);
 	}
 
     	t_end = rtclock();
-    	fprintf(stdout,"%d, %7.5lf \n", N,N*N*N*2e0/((t_end - t_start)*1.0e6)); 
-    	fprintf(fptr,"%d, %7.5lf\n", N,N*N*N*2e0/((t_end - t_start)*1.0e6));
-        // fprintf(stdout,"%e \n", t_end-t_start);
+    	fprintf(stdout, "%d, %7.5lf \n", N, N * N * N * 2e0 / ((t_end - t_start) * 1.0e6)); 
+    	fprintf(fptr, "%d, %7.5lf\n", N, N * N * N * 2e0 / ((t_end - t_start) * 1.0e6));
     }   
 
 
