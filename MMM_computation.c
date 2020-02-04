@@ -6,7 +6,8 @@
 #include <assert.h>
 
 
-double a[10000000], b[10000000], c[10000000], d[10000000];
+double mat1[1000][1000], mat2[1000][1000];
+double res[1000][1000];
 
 int dummy();
 int R=100; 
@@ -37,17 +38,23 @@ double rtclock()
 int main()
 {
     double t_start, t_end;
-	for (int i=0; i<10000000; i++){
-		a[i]=0.0e0; b[i]=1.0e0; c[i]=2.0e0; d[i]=3.0e0;
+	for (int i = 0; i < 1000; i++) {
+		for (int j = 0; j < 1000; j++) { 
+            mat1[i][j]=1.0e0; mat2[i][j]=2.0e0;
+        }
 	}
-    for (N=1; N <= 10000000; N+=incre(N)){
+    for (N=1; N <= 1000; N+=incre(N)) {
     	t_start = rtclock();
 
-	for (int j=0; j< R; j++){
-		for (int i =0; i<N; i++){
-			a[i]=b[i]+c[i]*d[i];
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			res[i][j] = 0;
+            for (int k = 0; k < N; k++) {
+                res[i][j] += mat1[i][k]*mat2[k][j];
+            }
+            // a[i]=b[i]+c[i]*d[i];
 		}
-		if (a[2] < 0) dummy(a,b,c,d);
+		// if (a[2] < 0) dummy(a,b,c,d);
 	}
 
     	t_end = rtclock();
