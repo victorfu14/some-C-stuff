@@ -9,10 +9,7 @@
 double mat1[1000][1000], mat2[1000][1000];
 double res[1000][1000];
 
-int dummy();
-int R=100; 
 int N;
-
 
 int incre(int N){
 
@@ -38,12 +35,15 @@ double rtclock()
 int main()
 {
     double t_start, t_end;
-	for (int i = 0; i < 1000; i++) {
+	FILE *fptr;
+    fptr = fopen("MMM_computation_output.txt", "w");
+    
+    for (int i = 0; i < 1000; i++) {
 		for (int j = 0; j < 1000; j++) { 
             mat1[i][j]=1.0e0; mat2[i][j]=2.0e0;
         }
 	}
-    for (N=1; N <= 1000; N+=incre(N)) {
+    for (N=10; N <= 1000; N+=incre(N)) {
     	t_start = rtclock();
 
 	for (int i = 0; i < N; i++) {
@@ -58,8 +58,9 @@ int main()
 	}
 
     	t_end = rtclock();
-    	fprintf(stdout,"%d , %7.5lf \n", N,R*N*3e0/((t_end - t_start)*1.0e6));
-        fprintf(stdout,"%e \n", t_end-t_start);
+    	fprintf(stdout,"%d, %7.5lf \n", N,N*N*N*2e0/((t_end - t_start)*1.0e6)); 
+    	fprintf(fptr,"%d, %7.5lf\n", N,N*N*N*2e0/((t_end - t_start)*1.0e6));
+        // fprintf(stdout,"%e \n", t_end-t_start);
     }   
 
 
