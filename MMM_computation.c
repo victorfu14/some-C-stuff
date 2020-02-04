@@ -59,7 +59,8 @@ int main()
 
     	t_end = rtclock();
     	fprintf(stdout,"%d , %7.5lf \n", N,R*N*3e0/((t_end - t_start)*1.0e6));
-    }
+        fprintf(stdout,"%e \n", t_end-t_start);
+    }   
 
 
     return 0;
