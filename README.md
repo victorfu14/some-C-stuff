@@ -1,3 +1,3 @@
-# some_benchmark
+# some-C-stuff
 
-Just some benchmark for cs296-33, learning C as well
+Just some stuff for cs296-33, learning C as well
