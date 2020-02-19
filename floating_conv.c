@@ -55,8 +55,6 @@ int main(int argc,char* argv[])
         i++;
     }
     value = tofloat(argv[1]);
-    float value_alt = atof(argv[1]);
     printf("%f\n", value);
-    printf("%f\n", value_alt);
     exit(0);
 }
