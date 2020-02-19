@@ -5,7 +5,7 @@
 
 float tofloat(char digit[]) {
 
-    float result = 0.0;
+    float result = 0;
 
     int offset = 0;
     int positive = 1;
@@ -25,16 +25,18 @@ float tofloat(char digit[]) {
             isDecimal = 1;
             continue;
         }
+        printf("%d\n", isDecimal);
         if (isDecimal == 0)
         {
             result = result * 10 + digit[i] - '0';
+            printf("%f\n", 1.0);
         } else
         {
+            printf("%f\n", dec_digit * (digit[i] - '0'));
             result += dec_digit * (digit[i] - '0');
             dec_digit = dec_digit * 0.1;
         } 
     }
-    printf("%f\n", result);
     if (positive == 0) result = -result;
     return result;
 }
