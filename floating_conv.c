@@ -9,32 +9,29 @@ float tofloat(char digit[]) {
 
     int offset = 0;
     int positive = 1;
-    if (digit[0] == "-")
+    if (digit[0] - '-' == 0)
     {
         positive = 0;
         offset = 1;
-    } else if (digit[0] == "+") offset = 1;
+    } else if (digit[0] - '+' == 0) offset = 1;
 
     int isDecimal = 0;
-    float dec_digit = 0.1;
+    float dec_mul = 0.1;
 
-    for (int i = offset; digit[i] != '\0'; i++) 
+    for (int i=offset; digit[i] != '\0'; i++) 
     {
-        if (digit[i] == ".") 
+        if (digit[i] - '.' == 0) 
         {
             isDecimal = 1;
             continue;
         }
-        printf("%d\n", isDecimal);
         if (isDecimal == 0)
         {
             result = result * 10 + digit[i] - '0';
-            printf("%f\n", 1.0);
         } else
         {
-            printf("%f\n", dec_digit * (digit[i] - '0'));
-            result += dec_digit * (digit[i] - '0');
-            dec_digit = dec_digit * 0.1;
+            result += dec_mul * (digit[i] - '0');
+            dec_mul *= 0.1;
         } 
     }
     if (positive == 0) result = -result;
