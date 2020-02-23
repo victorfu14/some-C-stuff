@@ -3,10 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-float tofloat(char digit[]) {
-
-    float result = 0;
-
+double todouble(char digit[]) {
+    double result = 0;
     int offset = 0;
     int positive = 1;
     if (digit[0] == '-')
@@ -16,24 +14,29 @@ float tofloat(char digit[]) {
     } else if (digit[0] == '+') offset = 1;
 
     int isDecimal = 0;
-    float dec_mul = 0.1;
+    int ct = 0;
+    double dec = 0.0;
 
-    for (int i=offset; digit[i] != '\0'; i++) 
+    for (ct = offset; digit[ct] != '\0'; ct++) 
     {
-        if (digit[i] == '.') 
+        if (digit[ct] == '.') 
         {
             isDecimal = 1;
             continue;
         }
         if (isDecimal == 0)
         {
-            result = result * 10 + digit[i] - '0';
-        } else
-        {
-            result += dec_mul * (digit[i] - '0');
-            dec_mul *= 0.1;
-        } 
+            result = result * 10 + digit[ct] - '0';
+        }
     }
+    if (isDecimal == 1)
+    {
+        for (ct = ct - 1; digit[ct] != '.'; ct--)
+        {
+            dec = (dec + digit[ct] - '0') * 0.1;
+        }
+    }
+    result += dec;
     if (positive == 0) result = -result;
     return result;
 }
@@ -41,9 +44,9 @@ float tofloat(char digit[]) {
 int main(int argc,char* argv[])
 {
     int i;
-    float value;
+    double value;
     FILE *fptr;
-    fptr = fopen("float_conversion_output.txt", "w");
+    fptr = fopen("double_conversion_output.txt", "w");
     if(argc != 2) 
     {
         printf("\nWrong number of command line arguments");
@@ -58,8 +61,8 @@ int main(int argc,char* argv[])
         fprintf(fptr, "%c\n", argv[1][i]);
         i++;
     }
-    value = tofloat(argv[1]);
-    float value_alt = atof(argv[1]);
+    value = todouble(argv[1]);
+    double value_alt = atof(argv[1]);
     fprintf(stdout, "Self implemented conversion: %f\n", value);
     fprintf(fptr, "Self implemented conversion: %f\n", value);
     fprintf(stdout, "C conversion: %f\n", value_alt);
