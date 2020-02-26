@@ -44,7 +44,14 @@ double todouble(char digit[]) {
 int main(int argc,char* argv[])
 {
     int i;
-    double value;
+    union {
+        double value;
+        unsigned int hex;
+    } val;
+    union {
+        double value;
+        unsigned int hex;
+    } val_alt;
     FILE *fptr;
     fptr = fopen("double_conversion_output.txt", "w");
     if(argc != 2) 
@@ -61,11 +68,18 @@ int main(int argc,char* argv[])
         fprintf(fptr, "%c\n", argv[1][i]);
         i++;
     }
-    value = todouble(argv[1]);
-    double value_alt = atof(argv[1]);
-    fprintf(stdout, "Self implemented conversion: %f\n", value);
-    fprintf(fptr, "Self implemented conversion: %f\n", value);
-    fprintf(stdout, "C conversion: %f\n", value_alt);
-    fprintf(fptr, "C conversion: %f\n", value_alt);
+    val.value = todouble(argv[1]);
+    val_alt.value = atof(argv[1]);
+    double diff = val.value - val_alt.value;
+    fprintf(stdout, "Self implemented conversion: %f\n", val.value);
+    fprintf(fptr, "Self implemented conversion: %f\n", val.value);
+    fprintf(stdout, "C conversion: %f\n", val_alt.value);
+    fprintf(fptr, "C conversion: %f\n", val_alt.value);
+    fprintf(stdout, "The difference is: %f\n", diff);
+    fprintf(fptr, "The difference is: %f\n", diff);
+    fprintf(stdout, "The hexadecimal respresentation of self implemented conversion is: %x\n", val.hex);
+    fprintf(fptr, "The hexadecimal respresentation of self implemented conversion is: %x\n", val.hex);
+    fprintf(stdout, "The hexadecimal respresentation of C atof conversion is: %x\n", val.hex);
+    fprintf(fptr, "The hexadecimal respresentation of C atof conversion is: %x\n", val.hex);    
     exit(0);
 }
