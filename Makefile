@@ -1,3 +1,5 @@
+default:
+	@echo "Please select a program!"
 double_conv:
 	gcc double_conv.c -o convert
 MMM : MMM_computation.c

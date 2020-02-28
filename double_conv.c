@@ -42,7 +42,7 @@ double todouble(char digit[]) {
 }
 
 unsigned long getMant(unsigned long val) {
-    return ((val << 12) >> 12) + 1; 
+    return (val << 12) >> 12; 
 }
 
 unsigned getExp(unsigned long val) {
@@ -54,8 +54,8 @@ unsigned getNeg(unsigned long val) {
 }
 
 void print_and_tofile(double val, unsigned long bits, unsigned long mantissa, unsigned exponent, unsigned negative, FILE *ptr) {
-    fprintf(stdout, "The decimal value is %f.\n", val);
-    fprintf(ptr, "The decimal value is %f.\n", val);
+    fprintf(stdout, "The decimal value is %le.\n", val);
+    fprintf(ptr, "The decimal value is %le.\n", val);
     fprintf(stdout, "The hexadecimal respresentation of the double value is 0x%lx.\n", bits);
     fprintf(ptr, "The hexadecimal respresentation of the double value is 0x%lx.\n", bits);
     fprintf(stdout, "The mantissa of the double value is 0x%lx.\n", mantissa);
@@ -78,8 +78,8 @@ struct double_rep {
         unsigned long int binary;
     } decimal;
     unsigned negative;
-    unsigned mantissa;
-    unsigned long exponent;
+    unsigned exponent;
+    unsigned long mantissa;
 };
 
 int main(int argc,char* argv[])
@@ -126,8 +126,8 @@ int main(int argc,char* argv[])
     fprintf(fptr, "\nThis is the C atof() conversion:\n");
     print_and_tofile(val_alt.decimal.value, val_alt.decimal.binary, val_alt.mantissa, val_alt.exponent, val_alt.negative, fptr);
 
-    fprintf(stdout, "\nThe difference between the values is %f, and the hex representation is 0x%lx.\n", diff.value, diff.binary);
-    fprintf(fptr, "\nThe difference between the values is %f, and the hex representation is 0x%lx.\n", diff.value, diff.binary);
+    fprintf(stdout, "\nThe difference between the values is %le, and the hex representation is 0x%lx.\n", diff.value, diff.binary);
+    fprintf(fptr, "\nThe difference between the values is %le, and the hex representation is 0x%lx.\n", diff.value, diff.binary);
 
     exit(0);
 }
